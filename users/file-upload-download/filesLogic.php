@@ -29,6 +29,9 @@ if (isset($_POST['save'])) { // if save button on the form is clicked
     $file = $_FILES['myfile']['tmp_name'];
     $size = $_FILES['myfile']['size'];
 
+    $statusUpdateQuery = "UPDATE transactions SET status= 'verified' WHERE id='$transaction_id'";
+    mysqli_query($conn, $statusUpdateQuery);
+
     if (!in_array($extension, ['zip', 'pdf', 'docx'])) {
         echo '<script>alert("Your file extension must be .zip, .pdf or .docx"); location = "http://localhost/escrow/users/file-upload-download/index.php"</script>';
     } elseif ($_FILES['myfile']['size'] > 1000000) { // file shouldn't be larger than 1Megabyte
