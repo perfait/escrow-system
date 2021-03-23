@@ -13,7 +13,7 @@ if(!isset($_SESSION))
 
     public function addTransaction($data) {
       // Prepare Query
-      $this->db->query('INSERT INTO transactions (id, customer_id, customer_email, product, transaction_title, transaction_partner, amount, currency, status) VALUES(:id, :customer_id, :email, :product, :transaction_title, :transaction_partner, :amount, :currency, :status)');
+      $this->db->query('INSERT INTO transactions (id, customer_id, customer_email, product, transaction_title, transaction_partner, amount, currency) VALUES(:id, :customer_id, :email, :product, :transaction_title, :transaction_partner, :amount, :currency)');
 
       // Bind Values
 
@@ -27,7 +27,7 @@ if(!isset($_SESSION))
       $this->db->bind(':transaction_partner', $_POST['seller_email']);
       $this->db->bind(':amount', $data['amount']);
       $this->db->bind(':currency', $data['currency']);
-      $this->db->bind(':status', $data['status']);
+  
 
       // Execute
       if($this->db->execute()) {

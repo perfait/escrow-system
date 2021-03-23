@@ -126,6 +126,14 @@ return true;
                       </a>
                    
                   </li>
+
+                  <li class="sub-menu">
+                      <a href="manage-transactions.php" >
+                          <i class="fa fa-money"></i>
+                          <span>Manage transactions</span>
+                      </a>
+                   
+                  </li>
               
                  
               </ul>

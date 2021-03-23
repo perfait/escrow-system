@@ -106,7 +106,8 @@ function getData(){
 
   $sql="SELECT id, transaction_title, transaction_partner, amount, status
   FROM transactions
-  WHERE customer_email= '$mail' OR transaction_partner='$mail'";
+  WHERE customer_email= '$mail' OR transaction_partner='$mail'
+  ORDER BY id DESC";
 
   $result = mysqli_query($GLOBALS['db'],$sql);
 

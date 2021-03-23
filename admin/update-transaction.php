@@ -9,12 +9,15 @@ if (strlen($_SESSION['id']==0)) {
 // for updating user info    
 if(isset($_POST['Submit']))
 {
-	$fname=$_POST['fname'];
-	$lname=$_POST['lname'];
-	$contact=$_POST['contact'];
-  $uid=intval($_GET['uid']);
-$query=mysqli_query($con,"update users set firstname='$fname' ,lastname='$lname' , phone='$contact' where id='$uid'");
-$_SESSION['msg']="Profile Updated successfully";
+	$customer_email=$_POST['customer_email'];
+	$transaction_title=$_POST['transaction_title'];
+	$transaction_partner=$_POST['transaction_partner'];
+    $amount = $_POST['amount'];
+  $uid=$_GET['uid'];
+$query=mysqli_query($con,"update transactions set customer_email='$customer_email', 
+                            transaction_title='$transaction_title' , transaction_partner='$transaction_partner',
+                            amount='$amount' where id='$uid'");
+$_SESSION['msg']= "Transaction updated successfully";
 }
 ?>
 
@@ -88,13 +91,13 @@ $_SESSION['msg']="Profile Updated successfully";
               </ul>
           </div>
       </aside>
-      <?php $ret=mysqli_query($con,"select * from users where id='".$_GET['uid']."'");
+      <?php $ret=mysqli_query($con,"select * from transactions where id='".$_GET['uid']."'");
 	  while($row=mysqli_fetch_array($ret))
 	  
 	  {?>
       <section id="main-content">
           <section class="wrapper">
-          	<h3><i class="fa fa-angle-right"></i> <?php echo $row['firstname'];?>'s Information</h3>
+          	<h3><i class="fa fa-angle-right"></i> <?php echo $row['customer_email'];?>'s Information</h3>
              	
 				<div class="row">
 				
@@ -106,35 +109,35 @@ $_SESSION['msg']="Profile Updated successfully";
                            <form class="form-horizontal style-form" name="form1" method="post" action="" onSubmit="return valid();">
                            <p style="color:#F00"><?php echo $_SESSION['msg'];?><?php echo $_SESSION['msg']="";?></p>
                           <div class="form-group">
-                              <label class="col-sm-2 col-sm-2 control-label" style="padding-left:40px;">First Name </label>
+                              <label class="col-sm-2 col-sm-2 control-label" style="padding-left:40px;">Customer email </label>
                               <div class="col-sm-10">
-                                  <input type="text" class="form-control" name="fname" value="<?php echo $row['firstname'];?>" >
+                                  <input type="text" class="form-control" name="customer_email" value="<?php echo $row['customer_email'];?>" >
                               </div>
                           </div>
                           
                               <div class="form-group">
-                              <label class="col-sm-2 col-sm-2 control-label" style="padding-left:40px;">Last Ename</label>
+                              <label class="col-sm-2 col-sm-2 control-label" style="padding-left:40px;">Transaction title</label>
                               <div class="col-sm-10">
-                                  <input type="text" class="form-control" name="lname" value="<?php echo $row['lastname'];?>" >
+                                  <input type="text" class="form-control" name="transaction_title" value="<?php echo $row['transaction_title'];?>" >
                               </div>
                           </div>
                           
                               <div class="form-group">
-                              <label class="col-sm-2 col-sm-2 control-label" style="padding-left:40px;">Email </label>
+                              <label class="col-sm-2 col-sm-2 control-label" style="padding-left:40px;">Transaction partner </label>
                               <div class="col-sm-10">
-                                  <input type="text" class="form-control" name="email" value="<?php echo $row['email'];?>" readonly >
+                                  <input type="text" class="form-control" name="transaction_partner" value="<?php echo $row['transaction_partner'];?>">
                               </div>
                           </div>
                                <div class="form-group">
-                              <label class="col-sm-2 col-sm-2 control-label" style="padding-left:40px;">Contact no. </label>
+                              <label class="col-sm-2 col-sm-2 control-label" style="padding-left:40px;">Amount </label>
                               <div class="col-sm-10">
-                                  <input type="text" class="form-control" name="contact" value="<?php echo $row['phone'];?>" >
+                                  <input type="text" class="form-control" name="amount" value="<?php echo $row['amount'];?>" >
                               </div>
                           </div>
                             <div class="form-group">
-                              <label class="col-sm-2 col-sm-2 control-label" style="padding-left:40px;">Registration Date </label>
+                              <label class="col-sm-2 col-sm-2 control-label" style="padding-left:40px;">Status </label>
                               <div class="col-sm-10">
-                                  <input type="text" class="form-control" name="regdate" value="<?php echo $row['posting_date'];?>" readonly >
+                                  <input type="text" class="form-control" name="status" value="<?php echo $row['status'];?>" readonly >
                               </div>
                           </div>
                           <div style="margin-left:100px;">
