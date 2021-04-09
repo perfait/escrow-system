@@ -1,5 +1,6 @@
 <?php
 session_start();
+include '../users/file-upload-download/filesLogic.php';
 include'dbconnection.php';
 // checking session is valid for not 
 if (strlen($_SESSION['id']==0)) {
@@ -25,7 +26,7 @@ echo "<script>alert('Data deleted');</script>";
     <meta name="author" content="Dashboard">
     <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
 
-    <title>Admin | Manage Users</title>
+    <title>Admin | Manage Verifications</title>
     <link href="assets/css/bootstrap.css" rel="stylesheet">
     <link href="assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
     <link href="assets/css/style.css" rel="stylesheet">
@@ -96,7 +97,7 @@ echo "<script>alert('Data deleted');</script>";
       </aside>
       <section id="main-content">
           <section class="wrapper">
-          	<h3><i class="fa fa-angle-right"></i> Manage Users</h3>
+          	<h3><i class="fa fa-angle-right"></i> Manage Verifications</h3>
 				<div class="row">
 				
                   
@@ -104,40 +105,29 @@ echo "<script>alert('Data deleted');</script>";
                   <div class="col-md-12">
                       <div class="content-panel">
                           <table class="table table-striped table-advance table-hover">
-	                  	  	  <h4><i class="fa fa-angle-right"></i> All User Details </h4>
+	                  	  	  <h4><i class="fa fa-angle-right"></i> All pending verifications </h4>
 	                  	  	  <hr>
-                              <thead>
-                              <tr>
-                                  <th>Sno.</th>
-                                  <th class="hidden-phone">First Name</th>
-                                  <th> Last Name</th>
-                                  <th> Email Id</th>
-                                  <th>Contact no.</th>
-                                  <th>Reg. Date</th>
-                              </tr>
-                              </thead>
-                              <tbody>
-                              <?php $ret=mysqli_query($con,"select * from users");
-							  $cnt=1;
-							  while($row=mysqli_fetch_array($ret))
-							  {?>
-                              <tr>
-                              <td><?php echo $cnt;?></td>
-                                  <td><?php echo $row['firstname'];?></td>
-                                  <td><?php echo $row['lastname'];?></td>
-                                  <td><?php echo $row['email'];?></td>
-                                  <td><?php echo $row['phone'];?></td>  <td><?php echo $row['posting_date'];?></td>
-                                  <td>
-                                     
-                                     <a href="update-profile.php?uid=<?php echo $row['id'];?>"> 
-                                     <button class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button></a>
-                                     <a href="manage-users.php?id=<?php echo $row['id'];?>"> 
-                                     <button class="btn btn-danger btn-xs" onClick="return confirm('Do you really want to delete');"><i class="fa fa-trash-o "></i></button></a>
-                                  </td>
-                              </tr>
-                              <?php $cnt=$cnt+1; }?>
                              
-                              </tbody>
+                                  <thead>
+                                    <th>ID</th>
+                                    <th>Filename</th>
+                                    <th>size (in mb)</th>
+                                    <th>Downloads</th>
+                                    <th>Action</th>
+                                </thead>
+                                <tbody>
+                                <?php foreach ($files as $file): ?>
+                                    <tr>
+                                    <td><?php echo $file['id']; ?></td>
+                                    <td><?php echo $file['name']; ?></td>
+                                    <td><?php echo floor($file['size'] / 1000) . ' KB'; ?></td>
+                                    <td><?php echo $file['downloads']; ?></td>
+                                    <td><a href="manage-verification.php?file_id=<?php echo $file['id'] ?>">Download</a></td>
+                                    </tr>
+                                <?php endforeach;?>
+
+</tbody>
+                              
                           </table>
                       </div>
                   </div>

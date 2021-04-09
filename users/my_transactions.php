@@ -39,7 +39,24 @@ require_once 'server.php';
                                 <tr>
                                     <td><?php echo $row['id'];?></td>
                                     <td><?php echo $row['transaction_title'];?></td>
-                                    <td><?php echo $row['transaction_partner'];?></td>
+                                    <td><?php 
+                                    
+                                    $customerEmail = $_SESSION['customerEmail'];
+                                    $useremail = $_SESSION['useremail'];
+                                    $transactionPartner = $_SESSION['transactionPartner'];
+
+                                    if ($useremail == $transactionPartner) {
+                                        echo $customerEmail;
+                                      } else {
+                                        echo $row['transaction_partner'];
+                                      }
+
+                                    ?>
+                                    
+
+                                    
+                                    
+                                    </td>
                                     <td><?php echo $row['amount'];?></td>
 									<td><a href="" style="text-decoration: none;"><?php echo $row['status'];?></a></td>
                                     

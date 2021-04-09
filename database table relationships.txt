@@ -1,0 +1,4 @@
+tables relationships
+verification (id) - (id) transaction
+transaction (customer_id) - customers (id)
+customers (email) - users (emails)

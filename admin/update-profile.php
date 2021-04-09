@@ -83,6 +83,14 @@ $_SESSION['msg']="Profile Updated successfully";
                       </a>
                    
                   </li>
+
+                  <li class="sub-menu">
+                      <a href="manage-verification.php" >
+                          <i class="fa fa-envelope"></i>
+                          <span>Manage verifications</span>
+                      </a>
+                   
+                  </li>
               
                  
               </ul>

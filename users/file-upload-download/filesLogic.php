@@ -41,7 +41,7 @@ if (isset($_POST['save'])) { // if save button on the form is clicked
         if (move_uploaded_file($file, $destination)) {
             $sql = "INSERT INTO verification (id, name, size, downloads) VALUES ('$transaction_id','$filename', $size, 0)";
             if (mysqli_query($conn, $sql)) {
-                echo '<script>alert("File uploaded successfully"); location = "http://localhost/escrow/users/file-upload-download/index.php"</script>';
+                echo '<script>alert("File uploaded successfully. Wait for us to release your money from escrow"); location = "http://localhost/escrow/users/file-upload-download/index.php"</script>';
             }
         } else {
             echo '<script>alert("Failed to upload file"); location = "http://localhost/escrow/users/file-upload-download/index.php"</script>';
