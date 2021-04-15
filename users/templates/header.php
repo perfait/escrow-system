@@ -6,6 +6,7 @@ if(!isset($_SESSION))
 
 
 require_once('server.php');
+include("notifications_operations.php");
 
 ?>
 <!DOCTYPE html>
@@ -50,10 +51,56 @@ require_once('server.php');
 
 		<ul class = "navbar-nav ml-auto">
 
-		<li>
+		<li class="nav-item dropdown">
+            <a class="nav-link" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Notifications 
+                <?php
+                $useremail = $_SESSION['useremail'];
+                $email = "akaka@gmail.com";
+
+                $query = "SELECT * from `notifications` where `status` = 'unread' AND `buyer_email` = '$useremail' order by `date` DESC";
+                if(count(fetchAll($query))>0){
+                ?>
+                <span class="badge badge-light"><?php echo count(fetchAll($query)); ?></span>
+              <?php
+                }
+                    ?>
+              </a>
+            <div class="dropdown-menu" aria-labelledby="dropdown01">
+                <?php
+                $query = "SELECT * from `notifications` where `buyer_email` = '$useremail' order by `date` DESC";
+                 if(count(fetchAll($query))>0){
+                     foreach(fetchAll($query) as $i){
+                ?>
+              <a style ="
+                         <?php
+                            if($i['status']=='unread'){
+                                echo "font-weight:bold;";
+                            }
+                         ?>
+                         " class="dropdown-item" href="notifications_view.php?id=<?php echo $i['id'] ?>">
+                <small><i><?php echo date('F j, Y, g:i a',strtotime($i['date'])) ?></i></small><br/>
+                  <?php 
+                  
+                
+                    echo ucfirst($i['name'])." payment request.";
+               
+                  
+                  ?>
+                </a>
+              <div class="dropdown-divider"></div>
+                <?php
+                     }
+                 }else{
+                     echo "No Records yet.";
+                 }
+                     ?>
+            </div>
+          </li>
+
+          <li>
 		<a class="nav-link" href="#">Welcome-<?php echo $_SESSION['username'] ?></a>
 		</li>
-
+    
 		<li class="nav-item">
 			<a class="nav-link" href="logout.php">Log out</a>	
 		</li>
@@ -67,3 +114,10 @@ require_once('server.php');
 	</nav>
 
 
+
+
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </body>
+</html>
