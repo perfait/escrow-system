@@ -16,7 +16,9 @@ require_once 'server.php';
 <div class="table-container">
 
 <!--Bootstrap table-->
-<h2 class = "my-4 text-center" style="padding-top: 8%;">Your transactions</h2>
+
+<h5 class = "my-4 text-center" style="padding-top: 8%;">Amount in escrow:</h5>
+<h2 class = "my-4 text-center">Your transactions</h2>
 <div class="d-flex table-data" style = "text-align: center; width: 100%; font-size: 0.9em;">
         <table class="table table-striped table-dark">
             <thead class="thead-dark">
@@ -57,7 +59,7 @@ require_once 'server.php';
                                     
                                     
                                     </td>
-                                    <td><?php echo $row['amount'];?></td>
+                                    <td><?php echo "ksh " .$row['amount'];?></td>
 									<td><a href="" style="text-decoration: none;"><?php echo $row['status'];?></a></td>
                                     
                                 </tr>

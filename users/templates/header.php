@@ -37,7 +37,7 @@ include("notifications_operations.php");
 			</li>
 
 			<li class="nav-item">
-				<a class="nav-link" href="#">Get verified</a>
+				<a class="nav-link" href="disputes.php">Disputes</a>
 			</li>
 
 			<li class="nav-item">

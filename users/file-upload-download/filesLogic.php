@@ -4,18 +4,25 @@ if(!isset($_SESSION))
     session_start(); 
 } 
 
-
 // connect to the database
 $conn = mysqli_connect('localhost', 'root', '', 'escrow');
 
-$sql = "SELECT * FROM verification";
+$sql = "SELECT * FROM disputes";
 $result = mysqli_query($conn, $sql);
 
 $files = mysqli_fetch_all($result, MYSQLI_ASSOC);
 $transaction_id = $_SESSION['transactionId'];
 
+
 // Uploads files
 if (isset($_POST['save'])) { // if save button on the form is clicked
+    //$disputeLauncher = $_POST['dispute_launcher'];
+    //$disputepartner = $_POST['dispute_partner'];
+   // $reason = $_POST['reason'];
+   $disputeLauncher = $_POST['dispute_launcher'];
+   $disputepartner = $_POST['dispute_partner'];
+   $reason = $_POST['reason'];
+
     // name of the uploaded file
     $filename = $_FILES['myfile']['name'];
 
@@ -29,9 +36,6 @@ if (isset($_POST['save'])) { // if save button on the form is clicked
     $file = $_FILES['myfile']['tmp_name'];
     $size = $_FILES['myfile']['size'];
 
-    $statusUpdateQuery = "UPDATE transactions SET status= 'verified' WHERE id='$transaction_id'";
-    mysqli_query($conn, $statusUpdateQuery);
-
     if (!in_array($extension, ['zip', 'pdf', 'docx'])) {
         echo '<script>alert("Your file extension must be .zip, .pdf or .docx"); location = "http://localhost/escrow/users/file-upload-download/index.php"</script>';
     } elseif ($_FILES['myfile']['size'] > 1000000) { // file shouldn't be larger than 1Megabyte
@@ -39,9 +43,10 @@ if (isset($_POST['save'])) { // if save button on the form is clicked
     } else {
         // move the uploaded (temporary) file to the specified destination
         if (move_uploaded_file($file, $destination)) {
-            $sql = "INSERT INTO verification (id, name, size, downloads) VALUES ('$transaction_id','$filename', $size, 0)";
+            $sql = "INSERT INTO disputes (id, name, dispute_launcher, launch_against, reason, size, downloads) 
+            VALUES ('$transaction_id','$filename', '$disputeLauncher', '$disputepartner', '$reason',  $size, 0)";
             if (mysqli_query($conn, $sql)) {
-                echo '<script>alert("File uploaded successfully. Wait for us to release your money from escrow"); location = "http://localhost/escrow/users/file-upload-download/index.php"</script>';
+                echo '<script>alert("File uploaded successfully."); location = "http://localhost/escrow/users/file-upload-download/index.php"</script>';
             }
         } else {
             echo '<script>alert("Failed to upload file"); location = "http://localhost/escrow/users/file-upload-download/index.php"</script>';
@@ -54,7 +59,7 @@ if (isset($_GET['file_id'])) {
     $id = $_GET['file_id'];
 
     // fetch file to download from database
-    $sql = "SELECT * FROM files WHERE id=$id";
+    $sql = "SELECT * FROM disputes WHERE id=$id";
     $result = mysqli_query($conn, $sql);
 
     $file = mysqli_fetch_assoc($result);
@@ -72,7 +77,7 @@ if (isset($_GET['file_id'])) {
 
         // Now update downloads count
         $newCount = $file['downloads'] + 1;
-        $updateQuery = "UPDATE files SET downloads=$newCount WHERE id=$id";
+        $updateQuery = "UPDATE disputes SET downloads=$newCount WHERE id=$id";
         mysqli_query($conn, $updateQuery);
         exit;
     }
