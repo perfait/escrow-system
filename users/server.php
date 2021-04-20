@@ -74,8 +74,7 @@ if (isset($_POST['login_user'])) {
   $useremailArray=mysqli_query($GLOBALS['db'],"select email FROM users where username='$username'");
             while ($row = $useremailArray->fetch_assoc()){
             $useremail = $row['email'];
-
-             }
+ }
 
   if (empty($username)) {
     array_push($errors, "Username is required");
@@ -93,13 +92,12 @@ if (isset($_POST['login_user'])) {
       $_SESSION['username'] = $username;
       $_SESSION['success'] = "You are now logged in";
       header('location: my_transactions.php');
+      $useremail = $_SESSION['useremail'];
     }else {
       array_push($errors, "Wrong username/password combination");
     }
-  }
 
-
-    $useremail = $_SESSION['useremail'];
+    //$useremail = $_SESSION['useremail'];
     $transactionPartner=mysqli_query($GLOBALS['db'],"select transaction_partner FROM transactions where customer_email= '$useremail' OR transaction_partner='$useremail'");
     while ($row = $transactionPartner->fetch_assoc()){
     $retrievedtransactionPartner = $row['transaction_partner'];
@@ -108,13 +106,17 @@ if (isset($_POST['login_user'])) {
   }
     
 
-  $useremail = $_SESSION['useremail'];
+  
     $customerEmail=mysqli_query($GLOBALS['db'],"select customer_email FROM transactions where customer_email= '$useremail' OR transaction_partner='$useremail'");
     while ($row = $customerEmail->fetch_assoc()){
     $retrievedCustomerEmail = $row['customer_email'];
 
     $_SESSION['customerEmail'] = $retrievedCustomerEmail;
   }
+  }
+
+
+    
 
 }
 
@@ -137,10 +139,7 @@ function getData(){
 }
 
       
-      
-    
-    
-    //echo $_SESSION['customerEmail'];
+
 
 
 ?>

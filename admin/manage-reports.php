@@ -1,6 +1,5 @@
 <?php
 session_start();
-include '../users/file-upload-download/filesLogic.php';
 include'dbconnection.php';
 // checking session is valid for not 
 if (strlen($_SESSION['id']==0)) {
@@ -11,7 +10,7 @@ if (strlen($_SESSION['id']==0)) {
 if(isset($_GET['id']))
 {
 $adminid=$_GET['id'];
-$msg=mysqli_query($con,"delete from users where id='$adminid'");
+$msg=mysqli_query($con,"delete from transactions where id='$adminid'");
 if($msg)
 {
 echo "<script>alert('Data deleted');</script>";
@@ -26,7 +25,7 @@ echo "<script>alert('Data deleted');</script>";
     <meta name="author" content="Dashboard">
     <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
 
-    <title>Admin | Manage Verifications</title>
+    <title>Admin | Manage Users</title>
     <link href="assets/css/bootstrap.css" rel="stylesheet">
     <link href="assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
     <link href="assets/css/style.css" rel="stylesheet">
@@ -84,11 +83,17 @@ echo "<script>alert('Data deleted');</script>";
                   </li>
 
                   <li class="sub-menu">
-                      <a href="manage-verification.php" >
+                      <a href="file-upload-download/manage-verification.php" >
                           <i class="fa fa-envelope"></i>
-                          <span>Manage verifications</span>
+                          <span>Manage disputes</span>
                       </a>
-                   
+                  </li>
+
+                  <li class="sub-menu">
+                      <a href="manage-reports.php" >
+                          <i class="fa fa-file"></i>
+                          <span>Manage Reports</span>
+                      </a>                   
                   </li>
               
                  
@@ -97,7 +102,7 @@ echo "<script>alert('Data deleted');</script>";
       </aside>
       <section id="main-content">
           <section class="wrapper">
-          	<h3><i class="fa fa-angle-right"></i> Manage Verifications</h3>
+          	<h3><i class="fa fa-angle-right"></i> Manage Transactions</h3>
 				<div class="row">
 				
                   
@@ -105,29 +110,43 @@ echo "<script>alert('Data deleted');</script>";
                   <div class="col-md-12">
                       <div class="content-panel">
                           <table class="table table-striped table-advance table-hover">
-	                  	  	  <h4><i class="fa fa-angle-right"></i> All pending verifications </h4>
+	                  	  	  <h4><i class="fa fa-angle-right"></i> All transactions Details </h4>
 	                  	  	  <hr>
+                                  <button class="btn btn-success btn-xs" style="margin-left: 15%; margin-bottom: 5%;" onclick="location.href='http://localhost/escrow/admin/csv/transactions_csv.php'" >Export transactions as CSV</i></button>
+                                  <button class="btn btn-success btn-xs" style="margin-left: 5%; margin-bottom: 5%;" onclick="location.href='http://localhost/escrow/admin/csv/users_csv.php'" >Export users as CSV</i></button>     
+                                  <button class="btn btn-success btn-xs" style="margin-left: 5%; margin-bottom: 5%;" onclick="location.href='http://localhost/escrow/admin/csv/disputes_csv.php'" >Export Disputes as CSV</i></button>   
+                                  <button class="btn btn-success btn-xs" style="margin-left: 5%; margin-bottom: 5%;" onclick="location.href='http://localhost/escrow/admin/csv/notifications_csv.php'" >Export notifications as CSV</i></button>  
+                              <thead>
+                              <tr>
+    
+                                  <th> </th>
+                                  <th>Id</th>
+                                  <th> Customer email</th>
+                                  <th>Transaction title</th>
+                                  <th>Transaction partner</th>
+                                  <th>Amount</th>
+                                  <th>Status</th>
+                              </tr>
+                              </thead>
+                              <tbody>
+                              <?php $ret=mysqli_query($con,"SELECT id, customer_email, transaction_title, transaction_partner, amount, 
+                              status FROM transactions ORDER BY id DESC");
+							  $cnt=1;
+							  while($row=mysqli_fetch_array($ret))
+							  {?>
+                              <tr>
+                              <td><?php echo $cnt;?></td>
+                                  <td><?php echo $row['id'];?></td>
+                                  <td><?php echo $row['customer_email'];?></td>
+                                  <td><?php echo $row['transaction_title'];?></td>
+                                  <td><?php echo $row['transaction_partner'];?></td>
+                                  <td><?php echo $row['amount'];?></td> 
+                                  <td><?php echo $row['status'];?></td> 
+                        
+                              </tr>
+                              <?php $cnt=$cnt+1; }?>
                              
-                                  <thead>
-                                    <th>ID</th>
-                                    <th>Filename</th>
-                                    <th>size (in mb)</th>
-                                    <th>Downloads</th>
-                                    <th>Action</th>
-                                </thead>
-                                <tbody>
-                                <?php foreach ($files as $file): ?>
-                                    <tr>
-                                    <td><?php echo $file['id']; ?></td>
-                                    <td><?php echo $file['name']; ?></td>
-                                    <td><?php echo floor($file['size'] / 1000) . ' KB'; ?></td>
-                                    <td><?php echo $file['downloads']; ?></td>
-                                    <td><a href="manage-verification.php?file_id=<?php echo $file['id'] ?>">Download</a></td>
-                                    </tr>
-                                <?php endforeach;?>
-
-</tbody>
-                              
+                              </tbody>
                           </table>
                       </div>
                   </div>

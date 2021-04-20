@@ -17,8 +17,11 @@ require_once 'server.php';
 
 <!--Bootstrap table-->
 
-<h5 class = "my-4 text-center" style="padding-top: 8%;">Amount in escrow:</h5>
-<h2 class = "my-4 text-center">Your transactions</h2>
+
+
+
+
+<h2 class = "my-4 text-center" style = "padding-top: 110px;">Your transactions</h2>
 <div class="d-flex table-data" style = "text-align: center; width: 100%; font-size: 0.9em;">
         <table class="table table-striped table-dark">
             <thead class="thead-dark">

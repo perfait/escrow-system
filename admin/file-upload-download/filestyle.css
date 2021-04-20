@@ -1,6 +1,7 @@
 form {
-  width: 30%;
+  width: 50%;
   margin: 100px auto;
+  margin-bottom: 10%;
   padding: 30px;
   border: 1px solid #555;
 }

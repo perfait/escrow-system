@@ -18,7 +18,7 @@ $buyer_email = $_SESSION['buyerEmail'];
 
 
 if(isset($_POST['launch_dispute'])){
-    header("Location: file-upload-download/index.php");
+    header("Location: ../admin/file-upload-download/index.php");
 }
 
 

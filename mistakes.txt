@@ -1,6 +1,0 @@
-- consult lec on smart objectives
-- form validation - not accept 123 as username
-- intergrate notification system
-- release money from escrow when buyer confirms receipt of goods
-- disputes
-- reports

@@ -70,7 +70,7 @@ include 'server.php';
         <input type="email" name="seller_email" class="form-control mb-3 StripeElement StripeElement--empty" placeholder="Seller's email address" required>
         <label for="transaction_details" style="font-family: 'Roboto', sans-serif;"><strong>Transaction details:</strong></label>
         <input type="text" name="transaction_title"class="form-control mb-3 StripeElement StripeElement--empty" placeholder="E.g purchase of a car" required>
-        <input type="text" name="amount" class="form-control mb-3 StripeElement StripeElement--empty" placeholder="Amount payable in USD.       Use this format ,5000 to mean 50USD (last two zeros are for decimal places.)" required>
+        <input type="text" name="amount" class="form-control mb-3 StripeElement StripeElement--empty" placeholder="Amount payable in ksh.       Please do not use commas" required>
         <div id="card-element" class="form-control">
         <!-- A Stripe Element will be inserted here. -->
         </div>

@@ -11,7 +11,7 @@ $sql = "SELECT * FROM disputes";
 $result = mysqli_query($conn, $sql);
 
 $files = mysqli_fetch_all($result, MYSQLI_ASSOC);
-$transaction_id = $_SESSION['transactionId'];
+
 
 
 // Uploads files
@@ -19,6 +19,7 @@ if (isset($_POST['save'])) { // if save button on the form is clicked
     //$disputeLauncher = $_POST['dispute_launcher'];
     //$disputepartner = $_POST['dispute_partner'];
    // $reason = $_POST['reason'];
+   $transaction_id = $_SESSION['transactionId'];
    $disputeLauncher = $_POST['dispute_launcher'];
    $disputepartner = $_POST['dispute_partner'];
    $reason = $_POST['reason'];
@@ -46,10 +47,10 @@ if (isset($_POST['save'])) { // if save button on the form is clicked
             $sql = "INSERT INTO disputes (id, name, dispute_launcher, launch_against, reason, size, downloads) 
             VALUES ('$transaction_id','$filename', '$disputeLauncher', '$disputepartner', '$reason',  $size, 0)";
             if (mysqli_query($conn, $sql)) {
-                echo '<script>alert("File uploaded successfully."); location = "http://localhost/escrow/users/file-upload-download/index.php"</script>';
+                echo '<script>alert("File uploaded successfully."); location = "http://localhost/escrow/admin/file-upload-download/index.php"</script>';
             }
         } else {
-            echo '<script>alert("Failed to upload file"); location = "http://localhost/escrow/users/file-upload-download/index.php"</script>';
+            echo '<script>alert("Failed to upload file"); location = "http://localhost/escrow/admin/file-upload-download/index.php"</script>';
         }
     }
 }
@@ -59,7 +60,7 @@ if (isset($_GET['file_id'])) {
     $id = $_GET['file_id'];
 
     // fetch file to download from database
-    $sql = "SELECT * FROM disputes WHERE id=$id";
+    $sql = "SELECT * FROM disputes WHERE id= '$id'";
     $result = mysqli_query($conn, $sql);
 
     $file = mysqli_fetch_assoc($result);

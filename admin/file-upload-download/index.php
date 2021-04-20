@@ -5,7 +5,7 @@ if(!isset($_SESSION))
     session_start(); 
 } 
 
-require_once('../server.php');
+require_once('../../users/server.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -13,8 +13,8 @@ require_once('../server.php');
   <title>Jarvis Escrow</title>
     <link rel="stylesheet" href="bootstrap-4.1.3-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="filestyle.css">
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/fixed.css">
+    <link rel="stylesheet" href="../../users/css/style.css">
+    <link rel="stylesheet" href="../../users/css/fixed.css">
     <link rel="stylesheet" href="/css/stripe.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
   </head>
@@ -22,7 +22,7 @@ require_once('../server.php');
 
   <!--navbar-->
   <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-	<a class="navbar-brand" href="#"><img src="../img/nuno.png"></a>
+	<a class="navbar-brand" href="#"><img src="../../users/img/nuno.png"></a>
 	<button class="navbar-toggler" type="button" data-toggle="collapse"
 	data-target="#navbarResponsive">
 		<span class="navbar-toggler-icon"></span>
@@ -31,7 +31,7 @@ require_once('../server.php');
 	<div class="collapse navbar-collapse" id="navbarResponsive">
 		<ul class = "navbar-nav">
 			<li class="nav-item">
-				<a class="nav-link" href="../my_transactions.php">Home</a>
+				<a class="nav-link" href="../../users/my_transactions.php">Home</a>
 			</li>
 
 		</ul>
@@ -43,7 +43,7 @@ require_once('../server.php');
 		</li>
 
 		<li class="nav-item">
-			<a class="nav-link" href="../logout.php">Log out</a>	
+			<a class="nav-link" href="../../users/logout.php">Log out</a>	
 		</li>
 		</ul>
 
@@ -62,7 +62,7 @@ require_once('../server.php');
         <label for="transaction_details" style="font-family: 'Roboto', sans-serif;"><strong>Name of person disputing against:</strong></label>
         <input type="text" name="dispute_partner" class="form-control mb-3 StripeElement StripeElement--empty" required>
         <label for="transaction_details" style="font-family: 'Roboto', sans-serif;"><strong>Reason for launching dispute:</strong></label>
-        <textarea id="reason" name="reason" rows="4" cols="50" placeholder="E.g Seller hasn't delivered yet" required>
+        <textarea id="reason" name="reason" rows="6" cols="70" placeholder="E.g Seller hasn't delivered yet" required>
         </textarea><br><br>
 
         </div>

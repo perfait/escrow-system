@@ -19,7 +19,7 @@ include("notifications_operations.php");
     if(count(fetchAll($query))>0){
         foreach(fetchAll($query) as $i){
            
-                echo ucfirst($i['name'])." Is requesting that you release his payment from escrow if you have received his goods. <br/>".$i['date'];
+                echo ucfirst($i['name'])." Is requesting that you release his/her payment from escrow if you have received his goods. <br/>".$i['date'];
                 echo "<br/>";
           
                 echo "Please press the confirm button below to confirm receipt of goods and release of funds.";

@@ -88,11 +88,17 @@ $_SESSION['msg']= "Transaction updated successfully";
                   </li>
 
                   <li class="sub-menu">
-                      <a href="manage-verification.php" >
+                      <a href="file-upload-download/manage-verification.php" >
                           <i class="fa fa-envelope"></i>
-                          <span>Manage verifications</span>
+                          <span>Manage Disputes</span>
                       </a>
-                   
+                  </li>
+
+                  <li class="sub-menu">
+                      <a href="manage-reports.php" >
+                          <i class="fa fa-file"></i>
+                          <span>Manage Reports</span>
+                      </a>                   
                   </li>
               
                  
